@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react'; // run: npm install lucide-react
+import { ChevronDown } from 'lucide-react';
 
 export default function Header() {
   const path = usePathname();
@@ -23,24 +23,24 @@ export default function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[color:var(--line)] overflow-visible">
-      <div className="container py-3 flex items-center justify-between">
-        {/* Logo (responsive, shows on mobile, bleeds slightly down) */}
-        <Link href="/" className="flex items-center gap-3 relative -mb-2">
-          <span className="relative block h-9 xs:h-10 sm:h-12 md:h-[100px] w-[150px] xs:w-[180px] sm:w-[220px] md:w-[300px] z-10">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[color:var(--line)]">
+      <div className="container py-3 flex flex-col md:flex-row md:items-center md:justify-between">
+        {/* Logo: large on mobile, aligned left on desktop */}
+        <div className="flex justify-center md:justify-start mb-3 md:mb-0">
+          <Link href="/" className="relative block h-12 sm:h-14 md:h-[100px] w-auto z-10">
             <Image
-              src="/logo.png"             // ensure /public/logo.png exists
+              src="/logo.png"
               alt="DM Advisory Group"
-              fill                        // makes it responsive inside the wrapper
+              fill
               priority
-              sizes="(max-width: 480px) 150px, (max-width: 640px) 180px, (max-width: 768px) 220px, 300px"
+              sizes="(max-width: 768px) 220px, 300px"
               className="object-contain"
             />
-          </span>
-        </Link>
+          </Link>
+        </div>
 
-        {/* Navigation (unchanged) */}
-        <nav className="flex items-center gap-4 relative">
+        {/* Navigation */}
+        <nav className="flex items-center justify-center md:justify-end gap-4 relative">
           {/* Services dropdown */}
           <div
             className="relative"
@@ -62,30 +62,14 @@ export default function Header() {
 
             {open && (
               <div
-                className="
-                  absolute left-0 top-full mt-1
-                  w-64 rounded-xl border border-[color:var(--line)]
-                  bg-white shadow-lg p-3 flex flex-col space-y-2
-                "
+                className="absolute left-0 top-full mt-1 w-64 rounded-xl border border-[color:var(--line)] bg-white shadow-lg p-3 flex flex-col space-y-2"
               >
-                <Link href="/services/it-consulting" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  IT Consulting
-                </Link>
-                <Link href="/services/enterprise-applications" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Enterprise Applications
-                </Link>
-                <Link href="/services/fractional-cio" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Fractional CIO
-                </Link>
-                <Link href="/services/automation" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Automation
-                </Link>
-                <Link href="/services/artificial-intelligence" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Artificial Intelligence
-                </Link>
-                <Link href="/services/cyber-security" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Cyber Security
-                </Link>
+                <Link href="/services/it-consulting" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">IT Consulting</Link>
+                <Link href="/services/enterprise-applications" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">Enterprise Applications</Link>
+                <Link href="/services/fractional-cio" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">Fractional CIO</Link>
+                <Link href="/services/automation" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">Automation</Link>
+                <Link href="/services/artificial-intelligence" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">Artificial Intelligence</Link>
+                <Link href="/services/cyber-security" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">Cyber Security</Link>
               </div>
             )}
           </div>
