@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Layers, Building2, ShieldCheck, Gauge, Bot, Workflow, ArrowRight } from 'lucide-react'
 
-// tiny card used in the Services section
 function SpotCard({
   href,
   icon,
@@ -43,7 +42,7 @@ function SpotCard({
 export default function Page() {
   return (
     <>
-      {/* HERO with blended background image */}
+      {/* HERO */}
       <section className="relative overflow-hidden py-16 md:py-20">
         <Image
           src="/hero.jpg"
@@ -73,11 +72,10 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SERVICES SPOTLIGHT (new, no kicker) */}
+      {/* SERVICES SPOTLIGHT */}
       <section className="relative py-12 md:py-16">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(900px_300px_at_50%_-60px,rgba(30,183,217,0.08),transparent)]" />
         <div className="container">
-          {/* headline + CTA */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
             <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
               Practical expertise, <span className="text-[color:var(--brand)]">real outcomes</span>.
@@ -87,7 +85,6 @@ export default function Page() {
             </Link>
           </div>
 
-          {/* services grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <SpotCard
               href="/services/it-consulting"
@@ -126,36 +123,29 @@ export default function Page() {
               blurb="Identity-first controls, email/endpoint protection, and BCP/DR readiness."
             />
           </div>
-
-          {/* bottom CTA band */}
-          <div className="mt-8 rounded-2xl border border-[color:var(--line)] bg-white/90 backdrop-blur p-4 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-            <p className="text-[color:var(--muted)]">
-              Not sure where to start? I’ll map a pragmatic 90-day plan you can act on.
-            </p>
-            <div className="flex gap-2">
-              <Link href="/services/fractional-cio" className="btn">See Fractional CIO</Link>
-              <Link href="/contact" className="btn btn-primary">Talk to David</Link>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* OUTCOMES (unchanged) */}
+      {/* IT CONSULTING OUTCOMES */}
       <section className="section-alt">
         <div className="container grid md:grid-cols-2 gap-8 items-start">
           <div>
-            <h2 className="text-2xl font-bold mb-2">Fractional CIO Outcomes</h2>
+            <h2 className="text-2xl font-bold mb-2">IT Consulting Outcomes</h2>
+            <p className="text-[color:var(--muted)] mb-3">
+              IT consulting brings clarity and direction to your technology investments—ensuring
+              that your platforms, vendors, and processes are optimized for efficiency and growth.
+            </p>
             <ul className="list">
-              <li>Standardize core platforms for 99.9% availability</li>
-              <li>Lower run costs via vendor & license optimization</li>
-              <li>Reduce cyber risk with MFA, email protection, governance</li>
-              <li>Turn operations data into KPIs & executive dashboards</li>
+              <li>Multi-year roadmaps aligned with business goals</li>
+              <li>Standardized platforms and best practices</li>
+              <li>Vendor & license optimization to reduce costs</li>
+              <li>Governance and compliance built into operations</li>
             </ul>
           </div>
           <div className="card p-5">
-            <h3 className="text-xl font-bold">Start with a 30-minute discovery</h3>
+            <h3 className="text-xl font-bold">Partner with confidence</h3>
             <p className="text-[color:var(--muted)] mb-3">
-              We’ll align goals, identify quick wins, and outline a pragmatic 90-day plan.
+              We deliver pragmatic recommendations and proven frameworks—always with an eye on ROI.
             </p>
             <a className="btn btn-primary" href="/contact">Request Discovery Call</a>
           </div>
