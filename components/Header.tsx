@@ -52,12 +52,10 @@ export default function Header() {
 
         {/* NAV */}
         <nav className="flex items-center justify-center md:justify-end gap-3 sm:gap-4 relative flex-wrap">
-          {/* Services dropdown: hover on desktop, click on mobile */}
+          {/* Services dropdown */}
           <div
             ref={menuRef}
             className="relative z-60"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
           >
             <button
               type="button"
@@ -65,7 +63,7 @@ export default function Header() {
               aria-haspopup="menu"
               aria-expanded={open}
               aria-controls="services-menu"
-              onClick={() => setOpen(v => !v)}   // tap/click support
+              onClick={() => setOpen(v => !v)}   // tap/click support for all devices
             >
               Services
               <ChevronDown
@@ -75,31 +73,32 @@ export default function Header() {
             </button>
 
             {/* Backdrop (mobile) to make tapping outside easy */}
-            <div
-              className={`fixed inset-0 md:hidden ${open ? 'block' : 'hidden'}`}
+            <button
               aria-hidden
+              className={`fixed inset-0 md:hidden ${open ? 'block' : 'hidden'}`}
+              onClick={() => setOpen(false)}
             />
 
+            {/* DROPDOWN PANEL */}
             <div
               id="services-menu"
               role="menu"
               className={`
-  absolute z-[80]
-  /* Desktop: anchor to button's left, small offset */
-  md:left-0 md:top-full md:mt-1 md:-translate-x-0
+                z-[80]
 
-  /* Mobile: center under the button, never overflow screen */
-  left-1/2 -translate-x-1/2 top-[calc(100%+8px)]
-  w-[min(20rem,calc(100vw-1rem))]  /* 320px max, minus 0.5rem margin each side */
-  rounded-xl border border-[color:var(--line)] bg-white shadow-lg p-2
+                /* --- Mobile: viewport-anchored sheet --- */
+                fixed inset-x-2 top-[72px]         /* ~header height; tweak if needed */
+                md:static md:absolute md:inset-auto
+                md:left-0 md:top-full md:mt-1
 
-  /* If content grows, allow scroll instead of spilling off-screen */
-  max-h-[70vh] overflow-auto
+                w-auto md:w-72
+                max-h-[70vh] overflow-auto
+                rounded-xl border border-[color:var(--line)] bg-white shadow-lg p-2
 
-  /* Show/Hide animation */
-  transition opacity-0 translate-y-1 pointer-events-none
-  ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
-`}
+                /* Show/Hide animation */
+                transition opacity-0 translate-y-1 pointer-events-none
+                ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
+              `}
             >
               <Link href="/services/it-consulting" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>IT Consulting</Link>
               <Link href="/services/enterprise-applications" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Enterprise Applications</Link>
