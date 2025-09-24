@@ -2,12 +2,23 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { ChevronDown } from 'lucide-react'; // run: npm install lucide-react
+import { useState, useRef, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 export default function Header() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (!menuRef.current) return;
+      if (!menuRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
+  }, []);
 
   const link = (href: string, label: string) => (
     <Link
@@ -17,6 +28,7 @@ export default function Header() {
           ? 'bg-white border border-[color:var(--line)]'
           : 'hover:text-[color:var(--brand)]'
       }`}
+      onClick={() => setOpen(false)}
     >
       {label}
     </Link>
@@ -24,34 +36,36 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[color:var(--line)] overflow-visible">
-      {/* stack on mobile so the logo gets its own row; row layout from md+ */}
+      {/* stack on mobile so logo has its own row */}
       <div className="container py-2 flex flex-col items-center gap-2 md:flex-row md:items-center md:justify-between">
-        {/* LOGO — bigger on mobile, slight bleed down; desktop back to normal */}
-        <Link href="/" className="relative block -mb-2 md:mb-0">
-          {/* Keep intrinsic sizing but larger base so it looks big on small screens */}
+        {/* LOGO — large on mobile */}
+        <Link href="/" className="relative block -mb-2 md:mb-0" onClick={() => setOpen(false)}>
           <Image
             src="/logo.png"
             alt="DM Advisory Group"
-            width={360}          // larger base so mobile looks big
+            width={360}
             height={120}
             priority
-            className="relative z-10 md:scale-[0.9] lg:scale-100"  // gently reduce on desktop
+            className="relative z-10 md:scale-[0.9] lg:scale-100"
           />
         </Link>
 
-        {/* NAVIGATION — centered under logo on mobile, right-aligned on desktop */}
+        {/* NAV */}
         <nav className="flex items-center justify-center md:justify-end gap-3 sm:gap-4 relative flex-wrap">
-          {/* Services dropdown */}
+          {/* Services dropdown: hover on desktop, click on mobile */}
           <div
-            className="relative"
+            ref={menuRef}
+            className="relative z-60"
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
           >
             <button
-              className="px-3 py-2 rounded-xl font-medium flex items-center gap-1 hover:text-[color:var(--brand)]"
-              onClick={() => setOpen((v) => !v)}
-              aria-haspopup="true"
+              type="button"
+              className="px-3 py-2 rounded-xl font-medium inline-flex items-center gap-1 hover:text-[color:var(--brand)]"
+              aria-haspopup="menu"
               aria-expanded={open}
+              aria-controls="services-menu"
+              onClick={() => setOpen(v => !v)}   // tap/click support
             >
               Services
               <ChevronDown
@@ -60,42 +74,37 @@ export default function Header() {
               />
             </button>
 
-            {open && (
-              <div
-                className="
-                  absolute left-0 top-full mt-1
-                  w-64 rounded-xl border border-[color:var(--line)]
-                  bg-white shadow-lg p-3 flex flex-col space-y-2
-                "
-              >
-                <Link href="/services/it-consulting" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  IT Consulting
-                </Link>
-                <Link href="/services/enterprise-applications" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Enterprise Applications
-                </Link>
-                <Link href="/services/fractional-cio" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Fractional CIO
-                </Link>
-                <Link href="/services/automation" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Automation
-                </Link>
-                <Link href="/services/artificial-intelligence" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Artificial Intelligence
-                </Link>
-                <Link href="/services/cyber-security" className="block px-3 py-2 rounded hover:bg-[color:var(--surface)]">
-                  Cyber Security
-                </Link>
-              </div>
-            )}
+            {/* Backdrop (mobile) to make tapping outside easy */}
+            <div
+              className={`fixed inset-0 md:hidden ${open ? 'block' : 'hidden'}`}
+              aria-hidden
+            />
+
+            <div
+              id="services-menu"
+              role="menu"
+              className={`
+                absolute md:left-0 md:top-full md:mt-1
+                left-1/2 -translate-x-1/2 top-[calc(100%+4px)]
+                w-72 rounded-xl border border-[color:var(--line)] bg-white shadow-lg p-2
+                transition opacity-0 translate-y-1 pointer-events-none
+                ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
+              `}
+            >
+              <Link href="/services/it-consulting" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>IT Consulting</Link>
+              <Link href="/services/enterprise-applications" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Enterprise Applications</Link>
+              <Link href="/services/fractional-cio" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Fractional CIO</Link>
+              <Link href="/services/automation" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Automation</Link>
+              <Link href="/services/artificial-intelligence" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Artificial Intelligence</Link>
+              <Link href="/services/cyber-security" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Cyber Security</Link>
+            </div>
           </div>
 
           {link('/results', 'Results')}
           {link('/about', 'About')}
           {link('/faq', 'FAQ')}
 
-          {/* Hide CTA on very small screens to prevent overlap; show from sm+ */}
-          <Link href="/contact" className="btn btn-primary hidden sm:inline-flex">
+          <Link href="/contact" className="btn btn-primary hidden sm:inline-flex" onClick={() => setOpen(false)}>
             Book a Discovery Call
           </Link>
         </nav>
