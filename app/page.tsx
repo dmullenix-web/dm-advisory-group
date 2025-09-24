@@ -1,7 +1,7 @@
 // app/page.tsx
 import Image from 'next/image'
 import Link from 'next/link'
-import { Layers, Building2, ShieldCheck, Gauge, Bot, Workflow, ArrowRight } from 'lucide-react' // npm i lucide-react
+import { Layers, Building2, ShieldCheck, Gauge, Bot, Workflow, ArrowRight } from 'lucide-react'
 
 // tiny card used in the Services section
 function SpotCard({
@@ -45,7 +45,6 @@ export default function Page() {
     <>
       {/* HERO with blended background image */}
       <section className="relative overflow-hidden py-16 md:py-20">
-        {/* Background image fills the section */}
         <Image
           src="/hero.jpg"
           alt=""
@@ -60,7 +59,6 @@ export default function Page() {
             [mask-repeat:no-repeat]
           "
         />
-        {/* soft wash + subtle brand tint for premium feel */}
         <div className="absolute inset-0 -z-10 bg-white/55" />
         <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.08)]" />
 
@@ -75,17 +73,10 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SERVICES SPOTLIGHT (new) */}
+      {/* SERVICES SPOTLIGHT (new, no kicker) */}
       <section className="relative py-12 md:py-16">
-        {/* soft brand wash behind cards */}
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(900px_300px_at_50%_-60px,rgba(30,183,217,0.08),transparent)]" />
         <div className="container">
-          {/* kicker */}
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-[color:var(--brand)] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[color:var(--brand)]" />
-            Our Services
-          </div>
-
           {/* headline + CTA */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
             <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
