@@ -135,12 +135,6 @@ export default function Page() {
               IT consulting brings clarity and direction to your technology investments—ensuring
               that your platforms, vendors, and processes are optimized for efficiency and growth.
             </p>
-            <ul className="list">
-              <li>Multi-year roadmaps aligned with business goals</li>
-              <li>Standardized platforms and best practices</li>
-              <li>Vendor & license optimization to reduce costs</li>
-              <li>Governance and compliance built into operations</li>
-            </ul>
           </div>
           <div className="card p-5">
             <h3 className="text-xl font-bold">Partner with confidence</h3>
