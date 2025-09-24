@@ -72,7 +72,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SERVICES SPOTLIGHT */}
+            {/* SERVICES SPOTLIGHT */}
       <section className="relative py-12 md:py-16">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(900px_300px_at_50%_-60px,rgba(30,183,217,0.08),transparent)]" />
         <div className="container">
@@ -80,9 +80,6 @@ export default function Page() {
             <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
               Practical expertise, <span className="text-[color:var(--brand)]">real outcomes</span>.
             </h2>
-            <Link href="/contact" className="btn btn-primary self-start">
-              Book a Discovery Call
-            </Link>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -125,6 +122,7 @@ export default function Page() {
           </div>
         </div>
       </section>
+
 
       {/* IT CONSULTING OUTCOMES */}
       <section className="section-alt">
