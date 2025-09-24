@@ -84,12 +84,22 @@ export default function Header() {
               id="services-menu"
               role="menu"
               className={`
-                absolute md:left-0 md:top-full md:mt-1
-                left-1/2 -translate-x-1/2 top-[calc(100%+4px)]
-                w-72 rounded-xl border border-[color:var(--line)] bg-white shadow-lg p-2
-                transition opacity-0 translate-y-1 pointer-events-none
-                ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
-              `}
+  absolute z-[80]
+  /* Desktop: anchor to button's left, small offset */
+  md:left-0 md:top-full md:mt-1 md:-translate-x-0
+
+  /* Mobile: center under the button, never overflow screen */
+  left-1/2 -translate-x-1/2 top-[calc(100%+8px)]
+  w-[min(20rem,calc(100vw-1rem))]  /* 320px max, minus 0.5rem margin each side */
+  rounded-xl border border-[color:var(--line)] bg-white shadow-lg p-2
+
+  /* If content grows, allow scroll instead of spilling off-screen */
+  max-h-[70vh] overflow-auto
+
+  /* Show/Hide animation */
+  transition opacity-0 translate-y-1 pointer-events-none
+  ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
+`}
             >
               <Link href="/services/it-consulting" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>IT Consulting</Link>
               <Link href="/services/enterprise-applications" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Enterprise Applications</Link>
