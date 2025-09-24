@@ -23,21 +23,23 @@ export default function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[color:var(--line)]">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[color:var(--line)] overflow-visible">
       <div className="container py-3 flex items-center justify-between">
-        {/* Logo (bleeds further down below header) */}
-        <Link href="/" className="flex items-center gap-3 relative">
-          <Image
-            src="/logo.png"
-            alt="DM Advisory Group"
-            width={300}       // even bigger logo
-            height={100}
-            priority
-            className="relative -mb-0 z-10" // pulls logo down more
-          />
+        {/* Logo (responsive, shows on mobile, bleeds slightly down) */}
+        <Link href="/" className="flex items-center gap-3 relative -mb-2">
+          <span className="relative block h-9 xs:h-10 sm:h-12 md:h-[100px] w-[150px] xs:w-[180px] sm:w-[220px] md:w-[300px] z-10">
+            <Image
+              src="/logo.png"             // ensure /public/logo.png exists
+              alt="DM Advisory Group"
+              fill                        // makes it responsive inside the wrapper
+              priority
+              sizes="(max-width: 480px) 150px, (max-width: 640px) 180px, (max-width: 768px) 220px, 300px"
+              className="object-contain"
+            />
+          </span>
         </Link>
 
-        {/* Navigation */}
+        {/* Navigation (unchanged) */}
         <nav className="flex items-center gap-4 relative">
           {/* Services dropdown */}
           <div
@@ -54,16 +56,14 @@ export default function Header() {
               Services
               <ChevronDown
                 size={16}
-                className={`transition-transform duration-200 ${
-                  open ? 'rotate-180' : ''
-                }`}
+                className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
               />
             </button>
 
             {open && (
               <div
                 className="
-                  absolute left-0 top-full
+                  absolute left-0 top-full mt-1
                   w-64 rounded-xl border border-[color:var(--line)]
                   bg-white shadow-lg p-3 flex flex-col space-y-2
                 "
