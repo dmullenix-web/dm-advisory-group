@@ -42,7 +42,7 @@ function SpotCard({
 export default function Page() {
   return (
     <>
-      {/* HERO */}
+            {/* HERO */}
       <section className="relative overflow-hidden py-16 md:py-20">
         <Image
           src="/hero.jpg"
@@ -62,7 +62,6 @@ export default function Page() {
         <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.08)]" />
 
         <div className="container">
-          <span className="pill">Fractional CIO Services</span>
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mt-3">
             Experienced technology leadership—on your budget and timeline.
           </h1>
@@ -71,6 +70,7 @@ export default function Page() {
           </p>
         </div>
       </section>
+
 
             {/* SERVICES SPOTLIGHT */}
       <section className="relative py-12 md:py-16">
