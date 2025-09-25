@@ -126,25 +126,42 @@ export default function Page() {
       </section>
 
 
-            {/* IT CONSULTING OUTCOMES */}
-      <section className="section-alt">
-        <div className="container grid md:grid-cols-2 gap-8 items-center">
-          <div className="text-center md:text-left">
-            <h2 className="text-2xl font-bold mb-2">IT Consulting Outcomes</h2>
-            <p className="text-[color:var(--muted)] max-w-xl mx-auto md:mx-0">
-              IT consulting brings clarity and direction to your technology investments—ensuring
-              that your platforms, vendors, and processes are optimized for efficiency and growth.
-            </p>
-          </div>
-          <div className="card p-5">
-            <h3 className="text-xl font-bold">Partner with confidence</h3>
-            <p className="text-[color:var(--muted)] mb-3">
-              We deliver pragmatic recommendations and proven frameworks—always with an eye on ROI.
-            </p>
-            <a className="btn btn-primary" href="/contact">Request Discovery Call</a>
-          </div>
+            {/* VALUE + TRUST SIDE-BY-SIDE */}
+<section className="section-alt">
+  <div className="container">
+    <div className="grid md:grid-cols-3 gap-4 items-stretch">
+      {/* Left: Value statement */}
+      <div className="card p-6 md:col-span-2 h-full flex flex-col">
+        <h3 className="text-2xl font-extrabold mb-2">
+          Turning Technology into Business Advantage
+        </h3>
+        <p className="text-lg font-medium text-[color:var(--muted)] mb-3">
+          Take the guesswork out of your tech needs.
+        </p>
+        <p className="text-[color:var(--muted)]">
+          Professional IT consulting provides clarity and expertise to guide technology decisions with confidence.
+          By aligning systems and processes with business objectives, organizations gain a clear path forward—
+          supported by proven practices, reduced risk, and optimized investments.
+        </p>
+      </div>
+
+      {/* Right: Partner with confidence */}
+      <div className="card p-6 h-full flex flex-col">
+        <div className="grow">
+          <h3 className="text-xl font-bold mb-2">Partner with confidence</h3>
+          <p className="text-[color:var(--muted)]">
+            Pragmatic recommendations and proven frameworks—
+            always with an eye on ROI and measurable outcomes.
+          </p>
         </div>
-      </section>
+        <a href="/contact" className="btn btn-primary mt-4 w-full md:w-auto self-start">
+          Request Discovery Call
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     </>
   )
