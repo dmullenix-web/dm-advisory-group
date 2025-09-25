@@ -1,23 +1,27 @@
+import Image from 'next/image'
 import { CheckCircle2, Layers, Gauge, ShieldCheck, Handshake, LineChart } from 'lucide-react'
 
 export default function Page() {
   return (
     <>
-      {/* HERO — distinct look (diagonal wash + faint grid, no photo) */}
-      <section className="relative overflow-hidden py-14 md:py-18">
-        {/* diagonal brand wash */}
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(30,183,217,0.08),transparent_45%,transparent)]" />
-        {/* ultra faint grid */}
-        <div
-          className="absolute inset-0 -z-10 opacity-30"
-          style={{
-            backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)',
-            backgroundSize: '22px 22px',
-            color: 'var(--line)',
-            maskImage: 'linear-gradient(to bottom, transparent, black 18%, black 82%, transparent)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 18%, black 82%, transparent)',
-          }}
+      {/* HERO — background image with soft fade */}
+      <section className="relative overflow-hidden py-16 md:py-20">
+        <Image
+          src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?q=80&w=1600&auto=format&fit=crop"
+          alt=""
+          fill
+          priority
+          aria-hidden="true"
+          className="
+            absolute inset-0 -z-10 object-cover opacity-65
+            [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
+            [mask-size:100%_100%] [mask-repeat:no-repeat]
+          "
         />
+        {/* soft tint */}
+        <div className="absolute inset-0 -z-10 bg-white/55" />
+        <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.08)]" />
+
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
             IT Consulting
@@ -108,7 +112,7 @@ export default function Page() {
                 body:
                   'Deliver initiatives with a light but consistent governance rhythm. Build runbooks, standards, and reporting so value is sustained.',
               },
-            ].map((s, i) => (
+            ].map((s) => (
               <li key={s.title} className="ml-4">
                 <div className="absolute -left-2.5 mt-1 size-4 rounded-full border bg-white border-[color:var(--line)]" />
                 <h3 className="font-semibold">{s.title}</h3>
@@ -137,7 +141,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA — minimal, no email */}
+      {/* CTA — minimal */}
       <section className="py-12">
         <div className="container">
           <div className="rounded-2xl border border-[color:var(--line)] bg-white p-6 md:p-8 grid md:grid-cols-2 gap-6 items-center">
