@@ -1,26 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-// Set RESEND_API_KEY in Vercel → Project → Settings → Environment Variables
 const resend = new Resend(process.env.RESEND_API_KEY)
-
-// Where you want to receive the contact emails
 const TO_EMAIL = process.env.CONTACT_TO || 'hello@dmadvisorygroup.com'
-const FROM_EMAIL = process.env.CONTACT_FROM || 'DM Advisory <no-reply@dmadvisorygroup.com>'
+const FROM_EMAIL =
+  process.env.CONTACT_FROM || 'DM Advisory <no-reply@dmadvisory.com>'
 
 export async function POST(req: NextRequest) {
   try {
     const { name, email, company, message, website } = await req.json()
 
-    // basic server-side validation
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
     }
-
-    // honeypot check
-    if (website) {
-      return NextResponse.json({ ok: true }) // silently succeed
-    }
+    // Honeypot — silently succeed if filled
+    if (website) return NextResponse.json({ ok: true })
 
     const subject = `New inquiry from ${name}${company ? ` @ ${company}` : ''}`
     const html = `
@@ -36,8 +30,8 @@ export async function POST(req: NextRequest) {
 
     const { error } = await resend.emails.send({
       to: TO_EMAIL,
-      from: FROM_EMAIL, // must be verified in Resend or a domain you set up in Resend
-      reply_to: email,
+      from: FROM_EMAIL,  // verify this sender/domain in Resend
+      replyTo: email,    // <-- fixed
       subject,
       html,
     })
@@ -54,7 +48,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// very small HTML escape
 function escapeHtml(s: string) {
   return String(s)
     .replace(/&/g, '&amp;')
