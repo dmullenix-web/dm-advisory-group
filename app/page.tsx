@@ -42,7 +42,7 @@ function SpotCard({
 export default function Page() {
   return (
     <>
-            {/* HERO */}
+                  {/* HERO */}
       <section className="relative overflow-hidden py-16 md:py-20">
         <Image
           src="/hero.jpg"
@@ -52,10 +52,11 @@ export default function Page() {
           aria-hidden="true"
           className="
             absolute inset-0 -z-10 object-cover
-            opacity-70
+            opacity-70 scale-90 md:scale-95
             [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
             [mask-size:100%_100%]
             [mask-repeat:no-repeat]
+            transition-transform
           "
         />
         <div className="absolute inset-0 -z-10 bg-white/55" />
@@ -70,6 +71,7 @@ export default function Page() {
           </p>
         </div>
       </section>
+
 
 
             {/* SERVICES SPOTLIGHT */}
@@ -124,12 +126,12 @@ export default function Page() {
       </section>
 
 
-      {/* IT CONSULTING OUTCOMES */}
+            {/* IT CONSULTING OUTCOMES */}
       <section className="section-alt">
-        <div className="container grid md:grid-cols-2 gap-8 items-start">
-          <div>
+        <div className="container grid md:grid-cols-2 gap-8 items-center">
+          <div className="text-center md:text-left">
             <h2 className="text-2xl font-bold mb-2">IT Consulting Outcomes</h2>
-            <p className="text-[color:var(--muted)] mb-3">
+            <p className="text-[color:var(--muted)] max-w-xl mx-auto md:mx-0">
               IT consulting brings clarity and direction to your technology investments—ensuring
               that your platforms, vendors, and processes are optimized for efficiency and growth.
             </p>
@@ -143,6 +145,7 @@ export default function Page() {
           </div>
         </div>
       </section>
+
     </>
   )
 }
