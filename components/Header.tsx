@@ -51,7 +51,7 @@ export default function Header() {
           {/* LOGO — large on mobile, slight bleed down */}
           <Link href="/" className="relative block -mb-2 md:mb-0" onClick={() => setOpen(false)}>
             <Image
-              src="/logo.png"             // ensure this file exists in /public
+              src="/logo.png"
               alt="DM Advisory Group"
               width={360}
               height={120}
@@ -62,7 +62,7 @@ export default function Header() {
 
           {/* NAV */}
           <nav className="flex items-center justify-center md:justify-end gap-3 sm:gap-4 relative flex-wrap">
-            {/* Services dropdown (works on click/tap; compact width) */}
+            {/* Services dropdown */}
             <div ref={menuRef} className="relative z-50">
               <button
                 type="button"
@@ -84,9 +84,14 @@ export default function Header() {
                 role="menu"
                 className={`
                   absolute z-50
-                  left-1/2 -translate-x-1/2 top-full mt-2
-                  md:left-0 md:translate-x-0 md:mt-1
-                  w-auto min-w-[12rem] max-w-[calc(100vw-2rem)]
+
+                  /* Mobile: centered with 16px gutters on both sides */
+                  left-4 right-4 translate-x-0 top-full mt-2 mx-auto
+                  w-[min(20rem,calc(100vw-2rem))]
+
+                  /* Desktop: anchor to trigger's left */
+                  md:left-0 md:right-auto md:mt-1 md:translate-x-0 md:w-64
+
                   rounded-xl border border-[color:var(--line)] bg-white shadow-lg px-2 py-2
                   transition opacity-0 translate-y-1 pointer-events-none
                   ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
@@ -105,13 +110,9 @@ export default function Header() {
             {link('/about', 'About')}
             {link('/faq', 'FAQ')}
 
-            {/* Only show CTA button if NOT on contact page */}
+            {/* CTA hidden if already on Contact page */}
             {path !== '/contact' && (
-              <Link
-                href="/contact"
-                className="btn btn-primary hidden sm:inline-flex"
-                onClick={() => setOpen(false)}
-              >
+              <Link href="/contact" className="btn btn-primary hidden sm:inline-flex" onClick={() => setOpen(false)}>
                 Book a Discovery Call
               </Link>
             )}
