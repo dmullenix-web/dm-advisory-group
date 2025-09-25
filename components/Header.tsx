@@ -84,14 +84,10 @@ export default function Header() {
                 role="menu"
                 className={`
                   absolute z-50
-
-                  /* Mobile: center under trigger, compact width */
                   left-1/2 -translate-x-1/2 top-full mt-2
                   md:left-0 md:translate-x-0 md:mt-1
-
                   w-auto min-w-[12rem] max-w-[calc(100vw-2rem)]
                   rounded-xl border border-[color:var(--line)] bg-white shadow-lg px-2 py-2
-
                   transition opacity-0 translate-y-1 pointer-events-none
                   ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
                 `}
@@ -109,10 +105,16 @@ export default function Header() {
             {link('/about', 'About')}
             {link('/faq', 'FAQ')}
 
-            {/* Hide CTA on very small screens to keep header clean */}
-            <Link href="/contact" className="btn btn-primary hidden sm:inline-flex" onClick={() => setOpen(false)}>
-              Book a Discovery Call
-            </Link>
+            {/* Only show CTA button if NOT on contact page */}
+            {path !== '/contact' && (
+              <Link
+                href="/contact"
+                className="btn btn-primary hidden sm:inline-flex"
+                onClick={() => setOpen(false)}
+              >
+                Book a Discovery Call
+              </Link>
+            )}
           </nav>
         </div>
       </header>
