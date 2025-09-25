@@ -104,15 +104,13 @@ export default function Page() {
           <div>
             <h2 className="text-2xl font-bold mb-2">What this means for you</h2>
             <p className="text-[color:var(--muted)]">
-              Whether scaling, integrating acquisitions, or tightening budgets, engagements are designed to make improvements
-              durable. The goal isn’t short-term fixes—it’s structures and practices that continue to pay off quarter after quarter.
+              The true value of IT consulting isn’t in quick fixes, but in measurable results—faster growth, smarter investments, and technology that accelerates business success. Every engagement is designed to deliver efficiency today and competitive advantage tomorrow.
             </p>
           </div>
           <div className="card p-6">
             <h3 className="font-semibold text-lg mb-2">Real-world impact</h3>
             <p className="text-[color:var(--muted)] mb-4">
-              Clients have achieved 20–30% cost savings, doubled uptime reliability, and reached compliance milestones faster
-              than internal timelines projected.
+              Engagements consistently drive greater reliability, smarter cost management, and faster compliance achievements—helping organizations move forward with confidence.
             </p>
             <a className="btn btn-primary w-full md:w-auto" href="/contact">See How We Can Help</a>
           </div>
