@@ -23,9 +23,6 @@ export default function Page() {
         <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.10)]" />
         <div className="container">
           <div className="max-w-4xl">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-[color:var(--brand)] bg-white/80 border border-[color:var(--line)] rounded-full px-3 py-1">
-              <Sparkles className="w-4 h-4" /> About
-            </span>
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mt-4">
               Nearly two decades of building technology that moves the business.
             </h1>
