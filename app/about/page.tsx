@@ -21,7 +21,6 @@ export default function Page() {
         {/* premium wash + brand tint */}
         <div className="absolute inset-0 -z-10 bg-white/55" />
         <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.10)]" />
-
         <div className="container">
           <div className="max-w-4xl">
             <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-[color:var(--brand)] bg-white/80 border border-[color:var(--line)] rounded-full px-3 py-1">
