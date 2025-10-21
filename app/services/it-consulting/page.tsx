@@ -7,17 +7,18 @@ export default function Page() {
       {/* HERO — background image with soft fade */}
       <section className="relative overflow-hidden py-16 md:py-20">
         <Image
-          src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?q=80&w=1600&auto=format&fit=crop"
-          alt=""
-          fill
-          priority
-          aria-hidden="true"
-          className="
-            absolute inset-0 -z-10 object-cover opacity-65
-            [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
-            [mask-size:100%_100%] [mask-repeat:no-repeat]
-          "
-        />
+  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop"
+  alt=""
+  fill
+  priority
+  aria-hidden="true"
+  className="
+    absolute inset-0 -z-10 object-cover opacity-65
+    [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
+    [mask-size:100%_100%] [mask-repeat:no-repeat]
+  "
+/>
+
         {/* soft tint */}
         <div className="absolute inset-0 -z-10 bg-white/55" />
         <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.08)]" />
