@@ -8,19 +8,22 @@ export default function Page() {
       {/* HERO */}
       <section className="relative overflow-hidden py-10 md:py-12">
         <Image
-          src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop"
-          alt=""
-          fill
-          priority
-          aria-hidden="true"
-          className="
-            absolute inset-0 -z-10 object-cover opacity-60
-            [mask-image:linear-gradient(to_bottom,transparent,black_12%,black_88%,transparent)]
-            [mask-size:100%_100%] [mask-repeat:no-repeat]
-          "
-        />
-        <div className="absolute inset-0 -z-10 bg-white/55" />
-        <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.06)]" />
+  src="/hero_meeting.png"
+  alt="Business meeting discussing technology strategy and performance metrics"
+  fill
+  priority
+  aria-hidden="true"
+  className="
+    absolute inset-0 -z-10 object-cover opacity-70
+    [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
+    [mask-size:100%_100%] [mask-repeat:no-repeat]
+  "
+/>
+
+{/* soft wash + subtle brand tint */}
+<div className="absolute inset-0 -z-10 bg-white/55" />
+<div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.08)]" />
+
 
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">Fractional CIO</h1>
