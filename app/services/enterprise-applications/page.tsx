@@ -7,7 +7,7 @@ export default function Page() {
       {/* HERO — blended image, soft brand tint */}
       <section className="relative overflow-hidden py-14 md:py-18">
         <Image
-          src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?q=80&w=1600&auto=format&fit=crop"
+          src="/enterprise_bg.jpeg"
           alt="Enterprise application strategy discussion"
           fill
           priority
