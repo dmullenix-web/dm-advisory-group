@@ -8,7 +8,7 @@ export default function Page() {
       {/* HERO */}
       <section className="relative overflow-hidden py-10 md:py-12">
         <Image
-  src="/cio-2_bg.jpeg"
+  src="/hero_meeting.png"
   alt="Business meeting discussing technology strategy and performance metrics"
   fill
   priority

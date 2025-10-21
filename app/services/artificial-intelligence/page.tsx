@@ -276,17 +276,32 @@ export default function Page() {
       <section className="py-12 relative">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,transparent,rgba(30,183,217,0.06),transparent)]" />
         <div className="container">
-          <div className="rounded-2xl border border-[color:var(--line)]/60 bg-white/90 backdrop-blur p-6 md:p-8 shadow-sm grid md:grid-cols-2 gap-6 items-center">
-            <div>
-              <h2 className="text-2xl font-bold mb-2">Ready to put AI to work—safely and pragmatically?</h2>
-              <p className="text-[color:var(--muted)]">
-                Start with a focused pilot and a clear plan to scale.
-              </p>
-            </div>
-            <div className="flex md:justify-end">
-              <a className="btn btn-primary" href="/contact">Request Discovery Call</a>
-            </div>
-          </div>
+          <p className="text-[color:var(--muted)]">
+            Pair practical experimentation with measurable business outcomes. We help teams
+            safely adopt AI copilots, automate knowledge work, and align governance with your
+            compliance requirements.
+          </p>
+
+          <h3 className="text-lg font-semibold mb-2">Approach</h3>
+          <ul className="list">
+            <li>Use-case discovery and prioritization</li>
+            <li>Pilot design with clear success metrics</li>
+            <li>Governance, data readiness, and security considerations</li>
+          </ul>
+
+          <h3 className="text-lg font-semibold mt-6 mb-2">Examples</h3>
+          <ul className="list">
+            <li>Agent-assisted workflows and knowledge retrieval</li>
+            <li>Summarization and reporting accelerators</li>
+            <li>Responsible use guidelines and training</li>
+          </ul>
+
+          <h3 className="text-lg font-semibold mt-6 mb-2">Typical Work</h3>
+          <ul className="list">
+            <li>LLM platform selection, integration, and rollout planning</li>
+            <li>Custom copilot and chatbot builds with human-in-the-loop review</li>
+            <li>Data quality, prompt engineering, and model evaluation support</li>
+          </ul>
         </div>
       </section>
     </>
