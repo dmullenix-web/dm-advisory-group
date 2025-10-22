@@ -138,7 +138,7 @@ export default function ContactPage() {
                       id="name"
                       name="name"
                       required
-                      placeholder="Your name"
+                      placeholder="Full name"
                       className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
                       disabled={status.state === 'loading'}
                     />
@@ -197,8 +197,14 @@ export default function ContactPage() {
           </div>
 
           <p className="text-xs text-[color:var(--muted)] mt-4">
-            By contacting us you agree to our standard communications. We never sell your data.
-          </p>
+  By contacting us you agree to our{' '}
+  <a
+    href="/privacy-policy"
+    className="text-[color:var(--brand)] underline hover:text-[color:var(--brand-hover)]"
+  >
+    Privacy Policy
+  </a>.
+</p>
         </div>
       </section>
 
