@@ -2,26 +2,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Layers, Building2, ShieldCheck, Gauge, Bot, Workflow, ArrowRight } from 'lucide-react'
+import ScrollSection from '@/components/ScrollSection'
 
 function SpotCard({
-  href,
-  icon,
-  title,
-  blurb,
-}: {
-  href: string
-  icon: React.ReactNode
-  title: string
-  blurb: string
-}) {
+  href, icon, title, blurb,
+}: { href: string; icon: React.ReactNode; title: string; blurb: string }) {
   return (
     <Link
       href={href}
-      className="
-        group rounded-2xl border border-[color:var(--line)]
-        bg-white/90 backdrop-blur p-4 shadow-sm
-        hover:shadow-md transition
-      "
+      className="group rounded-2xl border border-[color:var(--line)] bg-white/90 backdrop-blur p-4 shadow-sm hover:shadow-md transition"
     >
       <div className="flex items-start gap-3">
         <div className="shrink-0 grid place-items-center w-9 h-9 rounded-xl bg-[color:var(--surface)] border border-[color:var(--line)]">
@@ -42,7 +31,7 @@ function SpotCard({
 export default function Page() {
   return (
     <>
-                  {/* HERO */}
+      {/* HERO */}
       <section className="relative overflow-hidden py-16 md:py-20">
         <Image
           src="/hero.jpg"
@@ -50,18 +39,12 @@ export default function Page() {
           fill
           priority
           aria-hidden="true"
-          className="
-            absolute inset-0 -z-10 object-cover
-            opacity-70 scale-90 md:scale-95
-            [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
-            [mask-size:100%_100%]
-            [mask-repeat:no-repeat]
-            transition-transform
-          "
+          className="absolute inset-0 -z-10 object-cover opacity-70 scale-90 md:scale-95
+                     [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
+                     [mask-size:100%_100%] [mask-repeat:no-repeat]"
         />
         <div className="absolute inset-0 -z-10 bg-white/55" />
         <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.08)]" />
-
         <div className="container">
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mt-3">
             Experienced technology leadership—on your budget and timeline.
@@ -72,9 +55,7 @@ export default function Page() {
         </div>
       </section>
 
-
-
-            {/* SERVICES SPOTLIGHT */}
+      {/* SERVICES SPOTLIGHT */}
       <section className="relative py-12 md:py-16">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(900px_300px_at_50%_-60px,rgba(30,183,217,0.08),transparent)]" />
         <div className="container">
@@ -125,44 +106,32 @@ export default function Page() {
         </div>
       </section>
 
+      {/* VALUE + TRUST (ScrollSection) */}
+      <ScrollSection variant="bright">
+        <div className="grid md:grid-cols-3 gap-4 items-stretch">
+          <div className="card p-6 md:col-span-2">
+            <h3 className="text-2xl font-extrabold mb-2">Turning Technology into Business Advantage</h3>
+            <p className="text-lg font-medium text-[color:var(--muted)] mb-3">Take the guesswork out of your tech needs.</p>
+            <p className="text-[color:var(--muted)]">
+              Professional IT consulting provides clarity and expertise to guide technology decisions with confidence.
+              By aligning systems and processes with business objectives, organizations gain a clear path forward—
+              supported by proven practices, reduced risk, and optimized investments.
+            </p>
+          </div>
 
-            {/* VALUE + TRUST SIDE-BY-SIDE */}
-<section className="section-alt">
-  <div className="container">
-    <div className="grid md:grid-cols-3 gap-4 items-stretch">
-      {/* Left: Value statement */}
-      <div className="card p-6 md:col-span-2 h-full flex flex-col">
-        <h3 className="text-2xl font-extrabold mb-2">
-          Turning Technology into Business Advantage
-        </h3>
-        <p className="text-lg font-medium text-[color:var(--muted)] mb-3">
-          Take the guesswork out of your tech needs.
-        </p>
-        <p className="text-[color:var(--muted)]">
-          Professional IT consulting provides clarity and expertise to guide technology decisions with confidence.
-          By aligning systems and processes with business objectives, organizations gain a clear path forward—
-          supported by proven practices, reduced risk, and optimized investments.
-        </p>
-      </div>
-
-      {/* Right: Partner with confidence */}
-      <div className="card p-6 h-full flex flex-col">
-        <div className="grow">
-          <h3 className="text-xl font-bold mb-2">Partner with confidence</h3>
-          <p className="text-[color:var(--muted)]">
-            Pragmatic recommendations and proven frameworks—
-            always with an eye on ROI and measurable outcomes.
-          </p>
+          <div className="card p-6 flex flex-col">
+            <div className="grow">
+              <h3 className="text-xl font-bold mb-2">Partner with confidence</h3>
+              <p className="text-[color:var(--muted)]">
+                Pragmatic recommendations and proven frameworks—always with an eye on ROI and measurable outcomes.
+              </p>
+            </div>
+            <a href="/contact" className="btn btn-primary mt-4 w-full md:w-auto self-start">
+              Request Discovery Call
+            </a>
+          </div>
         </div>
-        <a href="/contact" className="btn btn-primary mt-4 w-full md:w-auto self-start">
-          Request Discovery Call
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+      </ScrollSection>
     </>
   )
 }
