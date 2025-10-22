@@ -1,13 +1,22 @@
 // app/contact/page.tsx
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Script from 'next/script'
+import { CheckCircle2, X } from 'lucide-react'
 
 type Status = { state: 'idle' | 'loading' | 'success' | 'error'; message?: string }
 
 export default function ContactPage() {
   const [status, setStatus] = useState<Status>({ state: 'idle' })
+
+  // Auto-dismiss success overlay
+  useEffect(() => {
+    if (status.state === 'success') {
+      const t = setTimeout(() => setStatus({ state: 'idle' }), 4000)
+      return () => clearTimeout(t)
+    }
+  }, [status.state])
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -27,7 +36,6 @@ export default function ContactPage() {
       return
     }
     if (data.website) {
-      // bot: act successful without sending
       setStatus({ state: 'success', message: 'Thanks! We’ll be in touch shortly.' })
       form.reset()
       return
@@ -68,7 +76,6 @@ export default function ContactPage() {
             Book time directly or send a message—whichever you prefer.
           </p>
 
-          {/* Two columns on desktop, stacked on mobile */}
           <div className="mt-6 grid md:grid-cols-2 gap-6">
             {/* Calendly (compact) */}
             <div className="card p-4 relative z-0">
@@ -76,25 +83,54 @@ export default function ContactPage() {
               <div
                 className="calendly-inline-widget rounded-xl border border-[color:var(--line)]"
                 data-url="https://calendly.com/david-dmadvisorygroup/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=1891ac"
-                style={{ minWidth: '300px', height: '520px' }} // compact height
+                style={{ minWidth: '300px', height: '520px' }}
               />
               <noscript>
                 <div className="mt-2 text-sm">
                   Calendly requires JavaScript. Book at{' '}
-                  <a
-                    className="text-[color:var(--brand)]"
-                    href="https://calendly.com/david-dmadvisorygroup/30min"
-                  >
+                  <a className="text-[color:var(--brand)]" href="https://calendly.com/david-dmadvisorygroup/30min">
                     this link
                   </a>.
                 </div>
               </noscript>
             </div>
 
-            {/* Contact form */}
+            {/* Contact form card */}
             <div className="card p-5 relative z-10">
               <h2 className="font-semibold mb-2">Send a Message</h2>
-              <form onSubmit={onSubmit} className="grid gap-3">
+
+              {/* Success Overlay */}
+              {status.state === 'success' && (
+                <div
+                  className="absolute inset-0 z-20 grid place-items-center bg-white/80 backdrop-blur-sm rounded-xl
+                             animate-[fadeIn_160ms_ease-out]"
+                  aria-live="polite"
+                >
+                  <div className="relative w-full max-w-md rounded-2xl border border-[color:var(--line)] bg-white shadow-lg p-6
+                                  animate-[popIn_140ms_ease-out]">
+                    <button
+                      aria-label="Close"
+                      onClick={() => setStatus({ state: 'idle' })}
+                      className="absolute right-3 top-3 rounded-full p-1 hover:bg-black/5"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5">
+                        <CheckCircle2 className="w-7 h-7 text-green-600" />
+                      </div>
+                      <div>
+                        <div className="text-lg font-semibold">Message sent</div>
+                        <p className="text-sm text-[color:var(--muted)] mt-0.5">
+                          {status.message ?? 'Thanks! We’ll be in touch shortly.'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={onSubmit} className="grid gap-3" aria-live="polite">
                 <div className="grid md:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="name">Name</label>
@@ -104,6 +140,7 @@ export default function ContactPage() {
                       required
                       placeholder="Your name"
                       className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                      disabled={status.state === 'loading'}
                     />
                   </div>
                   <div>
@@ -115,6 +152,7 @@ export default function ContactPage() {
                       required
                       placeholder="you@company.com"
                       className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                      disabled={status.state === 'loading'}
                     />
                   </div>
                 </div>
@@ -126,6 +164,7 @@ export default function ContactPage() {
                     name="company"
                     placeholder="Company name"
                     className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                    disabled={status.state === 'loading'}
                   />
                 </div>
 
@@ -138,6 +177,7 @@ export default function ContactPage() {
                     rows={5}
                     placeholder="What’s going on in your IT today?"
                     className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                    disabled={status.state === 'loading'}
                   />
                 </div>
 
@@ -148,8 +188,10 @@ export default function ContactPage() {
                   {status.state === 'loading' ? 'Sending…' : 'Send Message'}
                 </button>
 
-                {status.state === 'error' && <p className="text-sm text-red-600">{status.message}</p>}
-                {status.state === 'success' && <p className="text-sm text-green-600">{status.message}</p>}
+                {/* Inline error (kept minimal since we have overlay for success) */}
+                {status.state === 'error' && (
+                  <p className="text-sm text-red-600">{status.message}</p>
+                )}
               </form>
             </div>
           </div>
@@ -159,6 +201,15 @@ export default function ContactPage() {
           </p>
         </div>
       </section>
+
+      {/* Tiny keyframes for the overlay pop */}
+      <style jsx global>{`
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes popIn {
+          0% { opacity: 0; transform: translateY(6px) scale(.98) }
+          100% { opacity: 1; transform: translateY(0) scale(1) }
+        }
+      `}</style>
     </main>
   )
 }
