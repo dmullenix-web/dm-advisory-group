@@ -1,20 +1,22 @@
 // app/contact/page.tsx
 'use client'
+
 import { useEffect, useState } from 'react'
 import Script from 'next/script'
+import { CheckCircle2, X } from 'lucide-react'
 
 type Status = { state: 'idle' | 'loading' | 'success' | 'error'; message?: string }
 
 export default function ContactPage() {
   const [status, setStatus] = useState<Status>({ state: 'idle' })
 
-  // Initialize Calendly inline once script is loaded
+  // Auto-dismiss success overlay
   useEffect(() => {
-    if ((window as any).Calendly) {
-      // @ts-ignore
-      window.Calendly.initInlineWidgets()
+    if (status.state === 'success') {
+      const t = setTimeout(() => setStatus({ state: 'idle' }), 4000)
+      return () => clearTimeout(t)
     }
-  }, [])
+  }, [status.state])
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -58,9 +60,13 @@ export default function ContactPage() {
 
   return (
     <main>
-      {/* Calendly assets */}
+      {/* Calendly assets (auto-init via data-url) */}
       <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
-      <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
+      <Script
+        src="https://assets.calendly.com/assets/external/widget.js"
+        strategy="afterInteractive"
+        onLoad={() => console.log('Calendly script loaded')}
+      />
 
       <section className="relative overflow-hidden py-12 md:py-16">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(900px_300px_at_50%_-60px,rgba(30,183,217,0.08),transparent)]" />
@@ -70,72 +76,108 @@ export default function ContactPage() {
             Book time directly or send a message—whichever you prefer.
           </p>
 
-          {/* Two columns on desktop, stacked on mobile */}
           <div className="mt-6 grid md:grid-cols-2 gap-6">
             {/* Calendly (compact) */}
-            <div className="card p-4">
+            <div className="card p-4 relative z-0">
               <h2 className="font-semibold mb-2">Book Time With Me</h2>
               <div
                 className="calendly-inline-widget rounded-xl border border-[color:var(--line)]"
                 data-url="https://calendly.com/david-dmadvisorygroup/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=1891ac"
-                style={{ minWidth: '300px', height: '520px' }} // compact height
+                style={{ minWidth: '300px', height: '520px' }}
               />
               <noscript>
                 <div className="mt-2 text-sm">
                   Calendly requires JavaScript. Book at{' '}
-                  <a
-                    className="text-[color:var(--brand)]"
-                    href="https://calendly.com/david-dmadvisorygroup/30min"
-                  >
+                  <a className="text-[color:var(--brand)]" href="https://calendly.com/david-dmadvisorygroup/30min">
                     this link
                   </a>.
                 </div>
               </noscript>
             </div>
 
-            {/* Contact form */}
-            <div className="card p-5">
+            {/* Contact form card */}
+            <div className="card p-5 relative z-10">
               <h2 className="font-semibold mb-2">Send a Message</h2>
-              <form onSubmit={onSubmit} className="grid gap-3">
+
+              {/* Success Overlay */}
+              {status.state === 'success' && (
+                <div
+                  className="absolute inset-0 z-20 grid place-items-center bg-white/80 backdrop-blur-sm rounded-xl
+                             animate-[fadeIn_160ms_ease-out]"
+                  aria-live="polite"
+                >
+                  <div className="relative w-full max-w-md rounded-2xl border border-[color:var(--line)] bg-white shadow-lg p-6
+                                  animate-[popIn_140ms_ease-out]">
+                    <button
+                      aria-label="Close"
+                      onClick={() => setStatus({ state: 'idle' })}
+                      className="absolute right-3 top-3 rounded-full p-1 hover:bg-black/5"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5">
+                        <CheckCircle2 className="w-7 h-7 text-green-600" />
+                      </div>
+                      <div>
+                        <div className="text-lg font-semibold">Message sent</div>
+                        <p className="text-sm text-[color:var(--muted)] mt-0.5">
+                          {status.message ?? 'Thanks! We’ll be in touch shortly.'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={onSubmit} className="grid gap-3" aria-live="polite">
                 <div className="grid md:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Name</label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="name">Name</label>
                     <input
+                      id="name"
                       name="name"
                       required
-                      placeholder="Your name"
+                      placeholder="Full name"
                       className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                      disabled={status.state === 'loading'}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1">Email</label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="email">Email</label>
                     <input
+                      id="email"
                       type="email"
                       name="email"
                       required
                       placeholder="you@company.com"
                       className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                      disabled={status.state === 'loading'}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Company (optional)</label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="company">Company (optional)</label>
                   <input
+                    id="company"
                     name="company"
                     placeholder="Company name"
                     className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                    disabled={status.state === 'loading'}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Message</label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="message">Message</label>
                   <textarea
+                    id="message"
                     name="message"
                     required
                     rows={5}
                     placeholder="What’s going on in your IT today?"
                     className="w-full rounded-xl border border-[color:var(--line)] px-3 py-2"
+                    disabled={status.state === 'loading'}
                   />
                 </div>
 
@@ -146,17 +188,34 @@ export default function ContactPage() {
                   {status.state === 'loading' ? 'Sending…' : 'Send Message'}
                 </button>
 
-                {status.state === 'error' && <p className="text-sm text-red-600">{status.message}</p>}
-                {status.state === 'success' && <p className="text-sm text-green-600">{status.message}</p>}
+                {/* Inline error (kept minimal since we have overlay for success) */}
+                {status.state === 'error' && (
+                  <p className="text-sm text-red-600">{status.message}</p>
+                )}
               </form>
             </div>
           </div>
 
           <p className="text-xs text-[color:var(--muted)] mt-4">
-            By contacting us you agree to our standard communications. We never sell your data.
-          </p>
+  By contacting us you agree to our{' '}
+  <a
+    href="/privacy-policy"
+    className="text-[color:var(--brand)] underline hover:text-[color:var(--brand-hover)]"
+  >
+    Privacy Policy
+  </a>.
+</p>
         </div>
       </section>
+
+      {/* Tiny keyframes for the overlay pop */}
+      <style jsx global>{`
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes popIn {
+          0% { opacity: 0; transform: translateY(6px) scale(.98) }
+          100% { opacity: 1; transform: translateY(0) scale(1) }
+        }
+      `}</style>
     </main>
   )
 }

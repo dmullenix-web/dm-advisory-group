@@ -2,6 +2,7 @@
 import './globals.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import CookieBanner from '../components/CookieBanner'
 
 export const metadata = {
   title: 'DM Advisory Group — Fractional CIO Services',
