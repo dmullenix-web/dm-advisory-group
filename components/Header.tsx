@@ -97,9 +97,9 @@ export default function Header() {
                   ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
                 `}
               >
+                <Link href="/services/fractional-cio" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Fractional CIO</Link>
                 <Link href="/services/it-consulting" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>IT Consulting</Link>
                 <Link href="/services/enterprise-applications" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Enterprise Applications</Link>
-                <Link href="/services/fractional-cio" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Fractional CIO</Link>
                 <Link href="/services/automation" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Automation</Link>
                 <Link href="/services/artificial-intelligence" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Artificial Intelligence</Link>
                 <Link href="/services/cyber-security" className="block px-3 py-2 rounded-lg hover:bg-[color:var(--surface)]" onClick={() => setOpen(false)}>Cyber Security</Link>
