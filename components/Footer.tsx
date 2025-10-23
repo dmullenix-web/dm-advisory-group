@@ -2,8 +2,8 @@
 
 export default function Footer() {
   function handleManageCookies() {
-    localStorage.removeItem('cookieConsent')
-    alert('Cookie preferences have been reset. Reload the page to see the banner again.')
+    // Open the CookieConsent modal (listens for this event)
+    window.dispatchEvent(new Event('dm-open-consent'))
   }
 
   return (

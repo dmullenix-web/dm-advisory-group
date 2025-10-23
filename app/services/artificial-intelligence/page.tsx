@@ -272,36 +272,34 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA — consistent with other pages */}
-      <section className="py-12 relative">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,transparent,rgba(30,183,217,0.06),transparent)]" />
-        <div className="container">
-          <p className="text-[color:var(--muted)]">
-            Pair practical experimentation with measurable business outcomes. We help teams
-            safely adopt AI copilots, automate knowledge work, and align governance with your
-            compliance requirements.
-          </p>
+      {/* ==== MATCHED CTA (same style as Fractional CIO page) ==== */}
+      <section className="relative overflow-hidden py-12 md:py-14">
+        <Image
+          src="/results-2.jpg"
+          alt=""
+          fill
+          priority
+          aria-hidden="true"
+          className="
+            absolute inset-0 -z-10 object-cover
+            opacity-60 blur-[1px]
+            [mask-image:linear-gradient(to_bottom,transparent,black_12%,black_88%,transparent)]
+            [mask-size:100%_100%] [mask-repeat:no-repeat]
+          "
+        />
+        <div className="absolute inset-0 -z-10 bg-white/55" />
+        <div className="absolute inset-0 -z-10 bg-[rgba(24,145,172,0.06)]" />
 
-          <h3 className="text-lg font-semibold mb-2">Approach</h3>
-          <ul className="list">
-            <li>Use-case discovery and prioritization</li>
-            <li>Pilot design with clear success metrics</li>
-            <li>Governance, data readiness, and security considerations</li>
-          </ul>
-
-          <h3 className="text-lg font-semibold mt-6 mb-2">Examples</h3>
-          <ul className="list">
-            <li>Agent-assisted workflows and knowledge retrieval</li>
-            <li>Summarization and reporting accelerators</li>
-            <li>Responsible use guidelines and training</li>
-          </ul>
-
-          <h3 className="text-lg font-semibold mt-6 mb-2">Typical Work</h3>
-          <ul className="list">
-            <li>LLM platform selection, integration, and rollout planning</li>
-            <li>Custom copilot and chatbot builds with human-in-the-loop review</li>
-            <li>Data quality, prompt engineering, and model evaluation support</li>
-          </ul>
+        <div className="container grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-2xl font-bold mb-2">Start your AI transformation journey</h2>
+            <p className="text-[color:var(--muted)]">
+              Align goals, identify quick wins, and map a pragmatic AI plan.
+            </p>
+          </div>
+          <div className="card p-5">
+            <a className="btn btn-primary w-full text-center" href="/contact">Request Discovery Call</a>
+          </div>
         </div>
       </section>
     </>
