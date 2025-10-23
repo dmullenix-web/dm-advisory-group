@@ -3,9 +3,16 @@
 
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
-import { getConsent } from '../lib/consent' // relative to /app/components
+import { getConsent } from '../lib/consent'
 
-const GA_ID = 'G-XXXXXXXXXX' // <- put your GA4 measurement ID here
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX' // set in Vercel env
 
 export default function GA4() {
   const [enabled, setEnabled] = useState(false)
@@ -14,14 +21,12 @@ export default function GA4() {
     const apply = () => {
       const c = getConsent()
 
-      // Ensure dataLayer/gtag exist
-      // @ts-ignore
-      window.dataLayer = window.dataLayer || []
-      function gtag(){ window.dataLayer!.push(arguments as any) }
-      // @ts-ignore
+      // Ensure dataLayer exists
+      if (!window.dataLayer) window.dataLayer = []
+      const gtag = (...args: any[]) => window.dataLayer.push(args)
       window.gtag = gtag
 
-      // Consent Mode v2: default deny
+      // Consent Mode v2: default deny non-essential
       gtag('consent', 'default', {
         ad_storage: 'denied',
         ad_user_data: 'denied',
@@ -56,7 +61,10 @@ export default function GA4() {
 
   return (
     <>
-      <Script id="gtag-base" strategy="afterInteractive">
+      {/* Load the GA library first */}
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+      {/* Configure GA */}
+      <Script id="gtag-config" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -64,10 +72,6 @@ export default function GA4() {
           gtag('config', '${GA_ID}', { anonymize_ip: true });
         `}
       </Script>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-      />
     </>
   )
 }
