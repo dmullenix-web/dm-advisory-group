@@ -3,7 +3,7 @@ export type Consent = {
   analytics: boolean
   marketing: boolean
   timestamp: number
-  explicit?: boolean // true = user clicked; false/undefined = implied or unknown
+  explicit?: boolean // only true when user clicks
 }
 
 const KEY = 'dm_consent_v1'
@@ -13,11 +13,7 @@ export function getConsent(): Consent | null {
   if (typeof window === 'undefined') return null
   const raw = localStorage.getItem(KEY)
   if (!raw) return null
-  try {
-    return JSON.parse(raw) as Consent
-  } catch {
-    return null
-  }
+  try { return JSON.parse(raw) as Consent } catch { return null }
 }
 
 export function setConsent(c: Consent) {
