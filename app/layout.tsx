@@ -3,13 +3,12 @@ import './globals.css'
 import type { Metadata } from 'next'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import dynamic from 'next/dynamic'
 
-// 🔹 Consent banner
-import CookieConsent from './components/CookieConsent'
-// 🔹 GA4 loader (respects consent)
-import GA4 from './components/GA4'
-// 🔹 NEW: SPA page-view tracker for GA4
-import RouteTracker from './components/RouteTracker'
+// Load client-only components in the browser (avoid prerender errors)
+const CookieConsent = dynamic(() => import('./components/CookieConsent'), { ssr: false })
+const GA4 = dynamic(() => import('./components/GA4'), { ssr: false })
+const RouteTracker = dynamic(() => import('./components/RouteTracker'), { ssr: false })
 
 export const metadata: Metadata = {
   title: 'DM Advisory Group LLC',
@@ -28,15 +27,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Header />
 
-        {/* GA4 loads only after Analytics consent is granted */}
+        {/* GA loads after consent (browser-only) */}
         <GA4 />
-        {/* Track SPA route changes as page views */}
+        {/* Track SPA route changes (browser-only) */}
         <RouteTracker />
 
         <main>{children}</main>
         <Footer />
 
-        {/* Consent modal (appears if no prior choice, or via “Manage Cookies”) */}
+        {/* Consent banner (browser-only) */}
         <CookieConsent />
       </body>
     </html>
