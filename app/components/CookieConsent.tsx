@@ -11,7 +11,6 @@ export default function CookieConsent() {
   const [marketing, setMarketing] = useState(false)
   const pathname = usePathname()
 
-  // Show banner on first load if no consent stored
   useEffect(() => {
     if (!getConsent()) setShow(true)
     const open = () => setShow(true)
@@ -19,7 +18,6 @@ export default function CookieConsent() {
     return () => window.removeEventListener('dm-open-consent', open)
   }, [])
 
-  // Implied consent when navigating away while banner visible
   useEffect(() => {
     if (!show) return
     const c = getConsent()
@@ -32,7 +30,6 @@ export default function CookieConsent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
-  // Re-prompt on home page if consent exists but isn’t explicit
   useEffect(() => {
     const c = getConsent()
     const isHome =
@@ -59,15 +56,15 @@ export default function CookieConsent() {
   if (!show) return null
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-50 border-t border-[color:var(--line)] bg-white/95 backdrop-blur-xl shadow-[0_-8px_20px_rgba(0,0,0,0.1)] transition-all">
-      <div className="container px-5 py-5 md:py-6 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+    <div className="fixed bottom-0 inset-x-0 z-50 border-t border-[color:var(--line)] bg-white/95 backdrop-blur-xl shadow-[0_-8px_20px_rgba(0,0,0,0.08)] transition-all">
+      <div className="container px-5 py-4 md:py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Copy */}
-          <div className="flex items-start gap-3 md:pr-6">
+          <div className="flex items-start gap-3 md:pr-4">
             <svg
               aria-hidden="true"
-              width="28"
-              height="28"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               className="shrink-0 text-[color:var(--brand)] mt-0.5"
             >
@@ -94,19 +91,19 @@ export default function CookieConsent() {
             <div className="flex flex-col sm:flex-row sm:justify-end gap-2 sm:gap-3">
               <button
                 onClick={rejectAll}
-                className="h-11 rounded-md border border-[color:var(--line)] px-5 font-medium hover:bg-[color:var(--surface)] transition"
+                className="h-9 text-xs md:text-sm rounded-md border border-[color:var(--line)] px-4 font-medium hover:bg-[color:var(--surface)] transition"
               >
                 Reject All
               </button>
               <button
                 onClick={() => setPrefsOpen(v => !v)}
-                className="h-11 rounded-md border border-[color:var(--line)] px-5 font-medium hover:bg-[color:var(--surface)] transition"
+                className="h-9 text-xs md:text-sm rounded-md border border-[color:var(--line)] px-4 font-medium hover:bg-[color:var(--surface)] transition"
               >
                 Settings
               </button>
               <button
                 onClick={confirmAll}
-                className="h-11 rounded-md px-6 font-semibold text-white shadow-sm transition"
+                className="h-9 text-xs md:text-sm rounded-md px-4 font-semibold text-white shadow-sm transition"
                 style={{ backgroundColor: 'var(--brand)' }}
               >
                 Accept All
@@ -117,9 +114,9 @@ export default function CookieConsent() {
 
         {/* Preferences */}
         {prefsOpen && (
-          <div className="mt-5 border-t border-[color:var(--line)] pt-4">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="flex flex-col sm:flex-row gap-5">
+          <div className="mt-4 border-t border-[color:var(--line)] pt-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" disabled checked />{' '}
                   <span className="font-medium">Essential</span>
@@ -145,13 +142,13 @@ export default function CookieConsent() {
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <button
                   onClick={() => setPrefsOpen(false)}
-                  className="h-10 rounded-md border border-[color:var(--line)] px-5 font-medium hover:bg-[color:var(--surface)]"
+                  className="h-9 text-xs md:text-sm rounded-md border border-[color:var(--line)] px-4 font-medium hover:bg-[color:var(--surface)]"
                 >
                   Back
                 </button>
                 <button
                   onClick={savePrefs}
-                  className="h-10 rounded-md px-5 font-semibold text-white shadow-sm"
+                  className="h-9 text-xs md:text-sm rounded-md px-4 font-semibold text-white shadow-sm"
                   style={{ backgroundColor: 'var(--brand)' }}
                 >
                   Save
