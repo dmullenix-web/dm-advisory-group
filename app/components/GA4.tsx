@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX' // set in Vercel env
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-B005XV9TRC' // set in Vercel env
 
 export default function GA4() {
   const [enabled, setEnabled] = useState(false)
@@ -57,7 +57,7 @@ export default function GA4() {
     return () => window.removeEventListener('dm-consent-updated', apply as EventListener)
   }, [])
 
-  if (!enabled || GA_ID === 'G-XXXXXXXXXX') return null
+  if (!enabled || GA_ID === 'G-B005XV9TRC') return null
 
   return (
     <>

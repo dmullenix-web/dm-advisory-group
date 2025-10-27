@@ -4,10 +4,12 @@ import type { Metadata } from 'next'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
-// 🔹 New consent modal (replaces old CookieBanner)
+// 🔹 Consent banner
 import CookieConsent from './components/CookieConsent'
-// 🔹 Optional: GA4 loader that respects consent (safe to remove if not used)
+// 🔹 GA4 loader (respects consent)
 import GA4 from './components/GA4'
+// 🔹 NEW: SPA page-view tracker for GA4
+import RouteTracker from './components/RouteTracker'
 
 export const metadata: Metadata = {
   title: 'DM Advisory Group LLC',
@@ -25,12 +27,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Header />
-        <main>{children}</main>
-        <Footer />
-        {/* Consent modal (appears if no prior choice, or via “Manage Cookies”) */}
-        <CookieConsent />
+
         {/* GA4 loads only after Analytics consent is granted */}
         <GA4 />
+        {/* Track SPA route changes as page views */}
+        <RouteTracker />
+
+        <main>{children}</main>
+        <Footer />
+
+        {/* Consent modal (appears if no prior choice, or via “Manage Cookies”) */}
+        <CookieConsent />
       </body>
     </html>
   )
