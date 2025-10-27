@@ -1,24 +1,25 @@
-'use client';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { useState, useRef, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+'use client'
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import { useState, useRef, useEffect } from 'react'
+import { ChevronDown } from 'lucide-react'
+import { AnalyticsEvents } from '@/app/lib/track'  // GA4 tracking
 
 export default function Header() {
-  const path = usePathname();
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const path = usePathname()
+  const [open, setOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function onDocClick(e: MouseEvent) {
-      if (!menuRef.current) return;
-      if (!menuRef.current.contains(e.target as Node)) setOpen(false);
+      if (!menuRef.current) return
+      if (!menuRef.current.contains(e.target as Node)) setOpen(false)
     }
-    document.addEventListener('click', onDocClick);
-    return () => document.removeEventListener('click', onDocClick);
-  }, []);
+    document.addEventListener('click', onDocClick)
+    return () => document.removeEventListener('click', onDocClick)
+  }, [])
 
   const link = (href: string, label: string) => (
     <Link
@@ -32,7 +33,7 @@ export default function Header() {
     >
       {label}
     </Link>
-  );
+  )
 
   return (
     <>
@@ -46,9 +47,8 @@ export default function Header() {
       )}
 
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[color:var(--line)] overflow-visible">
-        {/* Stack on mobile so the logo gets its own row */}
         <div className="container py-2 flex flex-col items-center gap-2 md:flex-row md:items-center md:justify-between">
-          {/* LOGO — large on mobile, slight bleed down */}
+          {/* LOGO */}
           <Link href="/" className="relative block -mb-2 md:mb-0" onClick={() => setOpen(false)}>
             <Image
               src="/logo.png"
@@ -84,14 +84,9 @@ export default function Header() {
                 role="menu"
                 className={`
                   absolute z-50
-
-                  /* Mobile: centered with 16px gutters on both sides */
-                  left-4 right-4 translate-x-0 top-full mt-2 mx-auto
+                  left-4 right-4 top-full mt-2 mx-auto
                   w-[min(20rem,calc(100vw-2rem))]
-
-                  /* Desktop: anchor to trigger's left */
-                  md:left-0 md:right-auto md:mt-1 md:translate-x-0 md:w-64
-
+                  md:left-0 md:right-auto md:mt-1 md:w-64
                   rounded-xl border border-[color:var(--line)] bg-white shadow-lg px-2 py-2
                   transition opacity-0 translate-y-1 pointer-events-none
                   ${open ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}
@@ -110,9 +105,30 @@ export default function Header() {
             {link('/about', 'About')}
             {link('/faq', 'FAQ')}
 
-            {/* CTA hidden if already on Contact page */}
+            {/* Desktop CTA (tracked) */}
             {path !== '/contact' && (
-              <Link href="/contact" className="btn btn-primary hidden sm:inline-flex" onClick={() => setOpen(false)}>
+              <Link
+                href="/contact"
+                className="btn btn-primary hidden sm:inline-flex"
+                onClick={() => {
+                  setOpen(false)
+                  AnalyticsEvents.ctaClick('header_book_discovery_call', path)
+                }}
+              >
+                Book a Discovery Call
+              </Link>
+            )}
+
+            {/* Mobile CTA (tracked, full-width) */}
+            {path !== '/contact' && (
+              <Link
+                href="/contact"
+                className="btn btn-primary sm:hidden w-full"
+                onClick={() => {
+                  setOpen(false)
+                  AnalyticsEvents.ctaClick('header_book_discovery_call_mobile', path)
+                }}
+              >
                 Book a Discovery Call
               </Link>
             )}
@@ -120,5 +136,5 @@ export default function Header() {
         </div>
       </header>
     </>
-  );
+  )
 }

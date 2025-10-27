@@ -8,7 +8,8 @@ import dynamic from 'next/dynamic'
 // Load client-only components in the browser (avoid prerender errors)
 const CookieConsent = dynamic(() => import('./components/CookieConsent'), { ssr: false })
 const GA4 = dynamic(() => import('./components/GA4'), { ssr: false })
-const RouteTracker = dynamic(() => import('./components/RouteTracker'), { ssr: false })
+// ⬇️ use the new RouteTracker from app/lib/track
+const RouteTracker = dynamic(() => import('./lib/track'), { ssr: false })
 
 export const metadata: Metadata = {
   title: 'DM Advisory Group LLC',
