@@ -67,6 +67,12 @@ export default function Page() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <SpotCard
+              href="/services/fractional-cio"
+              icon={<Gauge className="w-5 h-5 text-[color:var(--brand)]" />}
+              title="Fractional CIO"
+              blurb="Executive technology leadership aligned to your goals—without the FTE."
+            />
+            <SpotCard
               href="/services/it-consulting"
               icon={<Layers className="w-5 h-5 text-[color:var(--brand)]" />}
               title="IT Consulting"
@@ -77,12 +83,6 @@ export default function Page() {
               icon={<Building2 className="w-5 h-5 text-[color:var(--brand)]" />}
               title="Enterprise Applications"
               blurb="ERP/CRM selection, implementation governance, and measurable ROI."
-            />
-            <SpotCard
-              href="/services/fractional-cio"
-              icon={<Gauge className="w-5 h-5 text-[color:var(--brand)]" />}
-              title="Fractional CIO"
-              blurb="Executive technology leadership aligned to your goals—without the FTE."
             />
             <SpotCard
               href="/services/automation"
